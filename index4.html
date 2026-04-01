@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>RISE SYSTEM — تجمع المؤسسين</title>
+  
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- Google Fonts: Arabic + futuristic -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Oxanium:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: radial-gradient(circle at 30% 10%, #0a0c14, #010105);
+      font-family: 'Cairo', sans-serif;
+      color: #eef5ff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    /* animated starfield & nebula background */
+    .cosmic-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image: 
+        radial-gradient(2px 2px at 25% 40%, rgba(0, 229, 255, 0.3), transparent),
+        radial-gradient(3px 3px at 80% 70%, rgba(168, 85, 247, 0.3), transparent),
+        radial-gradient(1px 1px at 10% 90%, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(2px 2px at 95% 15%, rgba(0, 229, 255, 0.2), transparent);
+      background-size: 300px 300px, 400px 400px, 200px 200px, 350px 350px;
+      background-repeat: no-repeat;
+      animation: starDrift 40s infinite alternate;
+    }
+    
+    .cosmic-bg::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at 50% 30%, rgba(0, 30, 40, 0.4), #010105 80%);
+      pointer-events: none;
+    }
+    
+    @keyframes starDrift {
+      0% { background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%; }
+      100% { background-position: 10% 15%, -5% 20%, 5% -5%, -8% 10%; }
+    }
+    
+    /* grid neon lines overlay */
+    .grid-lines {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: 
+        repeating-linear-gradient(90deg, rgba(0, 229, 255, 0.08) 0px, rgba(0, 229, 255, 0.08) 1px, transparent 1px, transparent 60px),
+        repeating-linear-gradient(0deg, rgba(0, 229, 255, 0.05) 0px, rgba(0, 229, 255, 0.05) 1px, transparent 1px, transparent 60px);
+      pointer-events: none;
+    }
+    
+    /* main container */
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem 3rem;
+      position: relative;
+      z-index: 2;
+    }
+    
+    /* header */
+    .hero {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    
+    .glitch-title {
+      font-family: 'Oxanium', 'Cairo', monospace;
+      font-size: 4.2rem;
+      font-weight: 800;
+      letter-spacing: 4px;
+      background: linear-gradient(135deg, #fff, #0af, #c084fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 18px rgba(0, 170, 255, 0.4);
+      animation: titlePulse 3s infinite alternate;
+      display: inline-block;
+      position: relative;
+    }
+    
+    .glitch-title::before,
+    .glitch-title::after {
+      content: "RISE SYSTEM";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0af, #c084fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    
+    .glitch-title::before {
+      animation: glitchMove 0.3s infinite alternate-reverse;
+      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+      transform: translate(-2px, -1px);
+    }
+    
+    .glitch-title::after {
+      animation: glitchMove 0.4s infinite alternate;
+      clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+      transform: translate(2px, 1px);
+    }
+    
+    @keyframes glitchMove {
+      0% { transform: translate(0, 0); opacity: 0.6; }
+      100% { transform: translate(3px, -2px); opacity: 0.9; }
+    }
+    
+    @keyframes titlePulse {
+      0% { text-shadow: 0 0 5px rgba(0, 170, 255, 0.2); }
+      100% { text-shadow: 0 0 25px rgba(0, 170, 255, 0.7); }
+    }
+    
+    .sub-brand {
+      font-size: 1rem;
+      letter-spacing: 6px;
+      color: #8ae2ff;
+      margin-top: 0.5rem;
+      font-family: 'Oxanium', monospace;
+      border-bottom: 1px dashed rgba(0, 229, 255, 0.4);
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+    
+    .legend {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 1.5rem auto 0;
+      color: #ccdeee;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(4px);
+      padding: 0.8rem 1.8rem;
+      border-radius: 60px;
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      font-weight: 500;
+    }
+    
+    /* character grid */
+    .founders {
+      text-align: center;
+      margin: 2rem 0 2rem;
+    }
+    
+    .section-badge {
+      font-family: 'Oxanium', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      color: #0af;
+      background: rgba(0, 170, 255, 0.12);
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      border: 1px solid rgba(0, 229, 255, 0.4);
+      margin-bottom: 1.5rem;
+    }
+    
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 1.8rem;
+      margin-top: 1.2rem;
+    }
+    
+    .card-sin {
+      background: rgba(8, 12, 25, 0.65);
+      backdrop-filter: blur(8px);
+      border-radius: 32px;
+      border: 1px solid rgba(0, 229, 255, 0.2);
+      padding: 1.6rem 1.2rem;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      box-shadow: 0 10px 25px -12px rgba(0, 0, 0, 0.5);
+      text-align: right;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card-sin::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 30%, rgba(0, 229, 255, 0.05), transparent);
+      pointer-events: none;
+    }
+    
+    .card-sin:hover {
+      border-color: rgba(0, 229, 255, 0.7);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 35px -12px rgba(0, 229, 255, 0.2);
+      background: rgba(10, 20, 40, 0.75);
+    }
+    
+    .sin-icon {
+      font-size: 2.2rem;
+      color: #0af;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+      text-shadow: 0 0 6px #0af;
+    }
+    
+    .character-name {
+      font-family: 'Oxanium', monospace;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(120deg, #ffffff, #0af);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin: 0.3rem 0 0.2rem;
+    }
+    
+    .sin-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #f0b3ff;
+      letter-spacing: 1px;
+      background: rgba(192, 132, 252, 0.2);
+      display: inline-block;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      margin: 0.5rem 0;
+    }
+    
+    .sin-desc {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: #bdd4ff;
+      margin-top: 0.6rem;
+      font-weight: 400;
+    }
+    
+    /* CTA section with portal */
+    .portal-area {
+      margin-top: 3.5rem;
+      text-align: center;
+      position: relative;
+    }
+    
+    .btn-warp {
+      background: linear-gradient(95deg, #0a1a2a, #03101a);
+      border: 2px solid #0af;
+      color: #0af;
+      font-family: 'Oxanium', monospace;
+      font-size: 1.7rem;
+      font-weight: 700;
+      padding: 1rem 2.8rem;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: 0.25s;
+      box-shadow: 0 0 18px rgba(0, 170, 255, 0.3);
+      backdrop-filter: blur(6px);
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      letter-spacing: 2px;
+    }
+    
+    .btn-warp i {
+      font-size: 1.6rem;
+      transition: transform 0.3s;
+    }
+    
+    .btn-warp:hover {
+      background: rgba(0, 170, 255, 0.2);
+      box-shadow: 0 0 32px rgba(0, 170, 255, 0.6);
+      transform: scale(1.02);
+      border-color: #fff;
+      color: #fff;
+    }
+    
+    .btn-warp:hover i {
+      transform: translateX(-5px);
+    }
+    
+    .portal-note {
+      margin-top: 1.2rem;
+      font-size: 0.75rem;
+      opacity: 0.7;
+      font-family: monospace;
+    }
+    
+    /* footer */
+    .footer-note {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.7rem;
+      color: #6c86a3;
+      border-top: 1px solid rgba(0, 229, 255, 0.2);
+      padding-top: 1.5rem;
+    }
+    
+    /* TUNNEL OVERLAY (warp effect) */
+    .tunnel-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      z-index: 10000;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s, opacity 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .tunnel-overlay.active {
+      visibility: visible;
+      opacity: 1;
+      transition: none;
+    }
+    
+    .tunnel-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    
+    /* responsive */
+    @media (max-width: 800px) {
+      .container { padding: 1rem 1rem 2rem; }
+      .glitch-title { font-size: 2.8rem; letter-spacing: 2px; }
+      .btn-warp { font-size: 1.3rem; padding: 0.7rem 1.8rem; }
+      .cards-grid { gap: 1rem; }
+      .character-name { font-size: 1.4rem; }
+    }
+    
+    @media (max-width: 550px) {
+      .glitch-title { font-size: 2rem; }
+      .legend { font-size: 0.9rem; }
+      .btn-warp { font-size: 1.1rem; }
+    }
+    
+    /* additional glow animation */
+    @keyframes cardGlow {
+      0% { border-color: rgba(0, 229, 255, 0.2); }
+      100% { border-color: rgba(0, 229, 255, 0.6); }
+    }
+  </style>
+</head>
+<body>
+<div class="cosmic-bg"></div>
+<div class="grid-lines"></div>
+
+<div class="container">
+  <div class="hero">
+    <h1 class="glitch-title">RISE SYSTEM</h1>
+    <div class="sub-brand">NO MERCY MODE — 6 SOULS, ONE MISSION</div>
+    <div class="legend">
+      <i class="fas fa-hand-fist" style="margin-left: 8px;"></i> 
+      ستة مؤسسين، ستة خطايا قاتلة للتطور. اجتمعوا ليصنعوا نظامًا لا يرحم — ليكسر كل ما يعيق نهضتك.
+    </div>
+  </div>
+
+  <div class="founders">
+    <div class="section-badge">
+      <i class="fas fa-skull"></i>  المؤسسون / الخطايا الستة  <i class="fas fa-dragon"></i>
+    </div>
+    <div class="cards-grid">
+      <!-- 1. آرين -->
+      <div class="card-sin">
+        <div class="sin-icon"><i class="fas fa-hourglass-half"></i></div>
+        <div class="character-name">آرين</div>
+        <div class="sin-title">الخوف من الفشل المقنع</div>
+        <div class="sin-desc">يؤجل البدء بدعوى عدم الاستعداد الكامل، متنكرًا تحت مسمى "انتظار اللحظة المناسبة". يظن أن التأجيل حماية، لكنه يسرق الفرص.</div>
+      </div>
+      <!-- 2. سيرين -->
+      <div class="card-sin">
+        <div class="sin-icon"><i class="fas fa-crown"></i></div>
+        <div class="character-name">سيرين</div>
+        <div class="sin-title">الغرور</div>
+        <div class="sin-desc">يظن أنه فوق النصائح، يرفض الاعتراف بالضعف. غروره يجعله يتجاهل أساسيات التطور، فيظل أسير صورته المزيفة.</div>
+      </div>
+      <!-- 3. كاليان -->
+      <div class="card-sin">
+        <div class="sin-icon"><i class="fas fa-book-open"></i></div>
+        <div class="character-name">كاليان</div>
+        <div class="sin-title">المعرفة بلا تطبيق</div>
+        <div class="sin-desc">يقرأ ويجمع الاستراتيجيات لكن لا ينفذ. أسير النظرية، يظن أن التخزين المعرفي كافٍ للتغيير، فيبقى مكانه.</div>
+      </div>
+      <!-- 4. ليان -->
+      <div class="card-sin">
+        <div class="sin-icon"><i class="fas fa-cloud-rain"></i></div>
+        <div class="character-name">ليان</div>
+        <div class="sin-title">اليأس المتخفي</div>
+        <div class="sin-desc">يتنكر في صورة الواقعية، لكنه يستسلم قبل المحاولة. يقتل الدافع بدعوى "النتيجة محتومة"، فيصبح سجين التشاؤم.</div>
+      </div>
+      <!-- 5. ثورون -->
+      <div class="card-sin">
+        <div class="sin-icon"><i class="fas fa-bolt"></i></div>
+        <div class="character-name">ثورون</div>
+        <div class="sin-title">الاندفاع الأعمى</div>
+        <div class="sin-desc">يبدأ باندفاع شديد دون خطة أو ترتيب، ثم ينطفئ بسرعة. يحترق بحماسة زائفة ويخسر الاستمرارية.</div>
+      </div>
+      <!-- 6. زين -->
+      <div class="card-sin">
+        <div class="sin-icon"><i class="fas fa-eye"></i></div>
+        <div class="character-name">زين</div>
+        <div class="sin-title">الحسد</div>
+        <div class="sin-desc">يقارن نفسه بالآخرين باستمرار، يضيع في التشتت ويصاب بالشلل. يرى نجاح غيره فيتوقف عن بناء نفسه.</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- رسالة جامعة -->
+  <div style="text-align: center; margin: 2rem 0 1rem;">
+    <div style="background: rgba(0, 170, 255, 0.08); backdrop-filter: blur(4px); border-radius: 48px; padding: 1rem 1.8rem; border: 1px solid rgba(0, 229, 255, 0.3); max-width: 850px; margin: 0 auto;">
+      <i class="fas fa-quote-right" style="color: #0af; margin-left: 10px;"></i>
+      <span style="font-size: 1rem; font-weight: 500;">هؤلاء الستة جمعوا خطاياهم ليخلقوا <strong style="color:#0af;">RISE SYSTEM</strong> — نظام إجباري يقيس التزامك اليومي، يعاقب ضعفك، ويكافئ انضباطك. لا مفر من المرآة.</span>
+      <i class="fas fa-quote-left" style="color: #0af; margin-right: 10px;"></i>
+    </div>
+  </div>
+
+  <div class="portal-area">
+    <button class="btn-warp" id="warpButton">
+      <i class="fas fa-arrow-left"></i>
+      ادخل إلى النظام
+      <i class="fas fa-vortex" style="font-size: 1.3rem;"></i>
+    </button>
+    <div class="portal-note">
+      <i class="fas fa-clock"></i> اضغط لعبور النفق الزمني — الدخول إلى المنصة الرئيسية
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <span>© RISE SYSTEM — لا رحمة مع التسويف | المؤسسون الستة ينتظرون التزامك</span>
+  </div>
+</div>
+
+<!-- Tunnel Overlay Canvas -->
+<div id="tunnelOverlay" class="tunnel-overlay">
+  <canvas id="tunnelCanvas" class="tunnel-canvas"></canvas>
+</div>
+
+<script>
+  (function() {
+    // --- TARGET URL ---
+    const TARGET_URL = "https://xlamox.github.io/RISE_SYSTEM_No_Mercy_Mode/";
+    
+    // DOM elements
+    const warpBtn = document.getElementById('warpButton');
+    const overlay = document.getElementById('tunnelOverlay');
+    const canvas = document.getElementById('tunnelCanvas');
+    let ctx = null;
+    let animationId = null;
+    let tunnelActive = false;
+    let startTimestamp = 0;
+    const DURATION = 1400; // ms tunnel effect
+    
+    // Resize canvas to full screen
+    function resizeCanvas() {
+      if (!canvas) return;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      if (ctx === null) ctx = canvas.getContext('2d');
+    }
+    
+    window.addEventListener('resize', () => {
+      if (tunnelActive) resizeCanvas();
+      else if (canvas) resizeCanvas();
+    });
+    
+    // ---------- TUNNEL DRAWING : high quality vortex effect ----------
+    // t = 0..1 (progress) where t=0 start, t=1 full warp before redirect
+    function drawTunnel(progress) {
+      if (!ctx || !canvas) return;
+      const w = canvas.width;
+      const h = canvas.height;
+      const centerX = w / 2;
+      const centerY = h / 2;
+      const maxRadius = Math.hypot(centerX, centerY) * 1.2;
+      
+      // clear
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, w, h);
+      
+      // dynamic distortion: progress increases zoom and rotation speed
+      const zoomFactor = 0.2 + progress * 0.9;    // from slightly zoomed to huge zoom-out illusion
+      const rotationSpeed = progress * 22;        // fast spin as progress advances
+      const linesCount = 36;
+      const ringsCount = 42;
+      
+      // stars background particles (twinkle)
+      for (let i = 0; i < 180; i++) {
+        const starX = (i * 131071) % w;
+        const starY = (i * 524287) % h;
+        const brightness = 0.3 + (Math.sin(i + progress * 25) * 0.3);
+        ctx.fillStyle = `rgba(180, 220, 255, ${brightness * 0.5})`;
+        ctx.fillRect(starX, starY, 1.5, 1.5);
+      }
+      
+      // draw radial rings with depth effect
+      for (let r = 1; r <= ringsCount; r++) {
+        const ringDist = r / ringsCount; // 0..1
+        // progress pushes rings outward: the tunnel expands rapidly
+        let radius = maxRadius * (ringDist - progress * 0.9);
+        if (radius < 0) radius = 0;
+        if (radius > maxRadius) continue;
+        
+        const ringAlpha = Math.max(0, 0.9 - ringDist * 0.6 - progress * 0.3);
+        const hueShift = (progress * 360 + r * 12) % 360;
+        const strokeColor = `hsla(${190 + hueShift * 0.5}, 100%, 65%, ${ringAlpha * 0.7})`;
+        
+        ctx.beginPath();
+        ctx.ellipse(centerX, centerY, radius, radius * (0.8 + Math.sin(ringDist * Math.PI) * 0.2), 0, 0, Math.PI * 2);
+        ctx.strokeStyle = strokeColor;
+        ctx.lineWidth = 2.2 - ringDist * 1.2;
+        ctx.stroke();
+        
+        // inner glow
+        ctx.beginPath();
+        ctx.ellipse(centerX, centerY, radius * 0.92, radius * 0.92 * (0.8 + Math.sin(ringDist * Math.PI) * 0.2), 0, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(0, 200, 255, ${ringAlpha * 0.3})`;
+        ctx.stroke();
+      }
+      
+      // rotating spiral arms
+      for (let arm = 0; arm < linesCount; arm++) {
+        const angleOffset = (arm / linesCount) * Math.PI * 2 + rotationSpeed * 2.5;
+        for (let seg = 0; seg < 80; seg++) {
+          const tSeg = seg / 80; // 0..1 along arm
+          const radiusArm = maxRadius * tSeg * (1 - progress * 0.85);
+          if (radiusArm < 2) continue;
+          const angle = angleOffset + (tSeg * 12 - progress * 20);
+          const x = centerX + Math.cos(angle) * radiusArm;
+          const y = centerY + Math.sin(angle) * radiusArm;
+          const alphaArm = Math.max(0, 0.5 - tSeg * 0.5 - progress * 0.4);
+          ctx.fillStyle = `rgba(0, 229, 255, ${alphaArm * 0.7})`;
+          ctx.beginPath();
+          ctx.arc(x, y, 2.2 * (1 - tSeg * 0.7), 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      
+      // central flash intensity grows at end
+      const flashIntensity = Math.min(1, progress * 1.2);
+      const radialGrd = ctx.createRadialGradient(centerX, centerY, 5, centerX, centerY, maxRadius * 0.3);
+      radialGrd.addColorStop(0, `rgba(255, 255, 255, ${flashIntensity * 0.9})`);
+      radialGrd.addColorStop(0.5, `rgba(0, 150, 255, ${flashIntensity * 0.5})`);
+      radialGrd.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = radialGrd;
+      ctx.fillRect(0, 0, w, h);
+      
+      // additional glitch lines
+      if (progress > 0.3) {
+        for (let i = 0; i < 12; i++) {
+          const yLine = (i * 70 + Date.now() * 0.02 * progress) % h;
+          ctx.fillStyle = `rgba(0, 255, 210, ${0.3 * progress})`;
+          ctx.fillRect(0, yLine, w, 2);
+        }
+      }
+    }
+    
+    // animation loop
+    function animateTunnel(startTime) {
+      const now = performance.now();
+      let elapsed = now - startTime;
+      let progress = Math.min(1, elapsed / DURATION);
+      
+      // Easing: cubic out for dramatic acceleration
+      const easeOut = 1 - Math.pow(1 - progress, 2.5);
+      drawTunnel(easeOut);
+      
+      if (progress < 1) {
+        animationId = requestAnimationFrame(() => animateTunnel(startTime));
+      } else {
+        // tunnel complete — redirect with full force
+        finishWarp();
+      }
+    }
+    
+    function finishWarp() {
+      if (animationId) cancelAnimationFrame(animationId);
+      // final flash whiteout for a moment
+      if (ctx && canvas) {
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+      // small delay to feel the jump
+      setTimeout(() => {
+        window.location.href = TARGET_URL;
+      }, 80);
+    }
+    
+    function startWarpTransition() {
+      if (tunnelActive) return;
+      tunnelActive = true;
+      
+      // show overlay and prepare canvas
+      overlay.classList.add('active');
+      resizeCanvas();
+      
+      // initial draw
+      if (ctx) drawTunnel(0);
+      
+      // start animation
+      const start = performance.now();
+      animationId = requestAnimationFrame(() => animateTunnel(start));
+    }
+    
+    // attach event to button
+    if (warpBtn) {
+      warpBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (tunnelActive) return;
+        startWarpTransition();
+      });
+    }
+    
+    // preload canvas dimensions and context on load
+    window.addEventListener('load', () => {
+      resizeCanvas();
+      if (canvas && !ctx) ctx = canvas.getContext('2d');
+      // optional: prefill black
+      if (ctx && canvas) {
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+    });
+    
+    // safety: disable double-click on button
+    warpBtn?.addEventListener('dblclick', (e) => e.preventDefault());
+    
+    // fallback: if any error, direct redirect on button without tunnel? but tunnel works.
+  })();
+</script>
+
+<!-- tiny additional interactive effect: floating mouse glow (just for style) -->
+<style>
+  .card-sin {
+    transition: all 0.3s;
+  }
+  .btn-warp:active {
+    transform: scale(0.97);
+  }
+  i.fa-vortex {
+    filter: drop-shadow(0 0 4px cyan);
+  }
+</style>
+</body>
+</html>
